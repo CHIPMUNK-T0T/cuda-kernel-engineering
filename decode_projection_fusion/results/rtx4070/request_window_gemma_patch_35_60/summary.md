@@ -1,0 +1,75 @@
+# Decode Projection Fusion Request-Window Analysis
+
+## Source
+
+- trace: `decode_projection_fusion/results/rtx4070/vllm_gemma_patch_nsys/20260624-230057-vllm-qwen35-2b-request_only_gemma_patch/cuda_gpu_trace.csv`
+- window: `35.0s-60.0s`
+- kernels in window: `266328`
+- total GPU kernel time: `4471551983` ns
+
+## Family Summary
+
+| family | total time ns | share | instances | avg ns |
+|---|---:|---:|---:|---:|
+| cuBLAS GEMV | 4140302525 | 92.592% | 58424 | 70866.5 |
+| GEMM / cuBLAS / CUTLASS | 90097450 | 2.015% | 31496 | 2860.6 |
+| copy / cast | 64518748 | 1.443% | 57816 | 1115.9 |
+| other | 45701500 | 1.022% | 29548 | 1546.7 |
+| Qwen hybrid / state-space | 40613652 | 0.908% | 9432 | 4305.9 |
+| norm / reduce | 33144205 | 0.741% | 27648 | 1198.8 |
+| elementwise | 21640407 | 0.484% | 23124 | 935.8 |
+| activation / SwiGLU | 19494984 | 0.436% | 12288 | 1586.5 |
+| fill | 8028910 | 0.180% | 10408 | 771.4 |
+| attention | 4807611 | 0.108% | 3072 | 1565.0 |
+| RoPE | 3201991 | 0.072% | 3072 | 1042.3 |
+
+## Candidate Kernels
+
+GEMV/GEMM/attention/norm を除いた、fusion 候補になりうる上位 kernel。
+
+| family | total time ns | share | instances | avg ns | name |
+|---|---:|---:|---:|---:|---|
+| copy / cast | 20739567 | 0.464% | 12776 | 1623.3 | `void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 3)]::oper...` |
+| copy / cast | 16893689 | 0.378% | 12504 | 1351.1 | `void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::Ten...` |
+| other | 15281347 | 0.342% | 12288 | 1243.6 | `void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, flo...` |
+| copy / cast | 14902682 | 0.333% | 17452 | 853.9 | `[CUDA memcpy Device-to-Device]` |
+| other | 12142915 | 0.272% | 9144 | 1328.0 | `_causal_conv1d_update_kernel` |
+| elementwise | 10944868 | 0.245% | 12288 | 890.7 | `void at::native::vectorized_elementwise_kernel<(int)4, at::native::CUDAFunctorOnSelf_add<float>, std::array<char *, (unsigned long)2>>(in...` |
+| other | 8097746 | 0.181% | 3584 | 2259.4 | `void at::native::index_elementwise_kernel<(int)128, (int)4, void at::native::gpu_index_kernel<void at::native::index_kernel_impl<at::nati...` |
+| fill | 7030112 | 0.157% | 9288 | 756.9 | `void at::native::vectorized_elementwise_kernel<(int)4, at::native::FillFunctor<c10::BFloat16>, std::array<char *, (unsigned long)1>>(int,...` |
+| copy / cast | 5678596 | 0.127% | 6144 | 924.3 | `void at::native::vectorized_elementwise_kernel<(int)4, at::native::bfloat16_copy_kernel_cuda(at::TensorIteratorBase &)::[lambda(float) (i...` |
+| elementwise | 3753205 | 0.084% | 3072 | 1221.7 | `void at::native::vectorized_elementwise_kernel<(int)4, at::native::sigmoid_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 2)]...` |
+| other | 3498413 | 0.078% | 2048 | 1708.2 | `_compute_slot_mapping_kernel` |
+| copy / cast | 2822419 | 0.063% | 5688 | 496.2 | `[CUDA memcpy Host-to-Device]` |
+| elementwise | 2800465 | 0.063% | 3072 | 911.6 | `void at::native::vectorized_elementwise_kernel<(int)4, at::native::BinaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native:...` |
+| other | 2577790 | 0.058% | 512 | 5034.7 | `void at::native::reduce_kernel<(int)512, (int)1, at::native::ReduceOp<float, at::native::ArgMaxOps<float>, unsigned int, long, (int)4, (i...` |
+| copy / cast | 1910934 | 0.043% | 1680 | 1137.5 | `void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 3)]::oper...` |
+| elementwise | 1826454 | 0.041% | 2048 | 891.8 | `void at::native::vectorized_elementwise_kernel<(int)4, at::native::CUDAFunctor_add<int>, std::array<char *, (unsigned long)3>>(int, T2, T3)` |
+| elementwise | 1279661 | 0.029% | 1536 | 833.1 | `void at::native::unrolled_elementwise_kernel<at::native::CUDAFunctor_add<int>, std::array<char *, (unsigned long)3>, (int)4, TrivialOffse...` |
+| other | 1272522 | 0.028% | 584 | 2179.0 | `void at::native::index_elementwise_kernel<(int)128, (int)4, void at::native::gpu_index_kernel<void at::native::index_kernel_impl<at::nati...` |
+| other | 847537 | 0.019% | 508 | 1668.4 | `void at::native::<unnamed>::indexSelectSmallIndex<c10::BFloat16, long, unsigned int, (int)2, (int)2, (int)-2>(at::cuda::detail::TensorInf...` |
+| other | 660840 | 0.015% | 72 | 9178.3 | `merge_16x16_to_64x64_inverse_kernel` |
+| copy / cast | 562086 | 0.013% | 512 | 1097.8 | `void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::Ten...` |
+| copy / cast | 558978 | 0.013% | 524 | 1066.8 | `void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 3)]::oper...` |
+| elementwise | 515655 | 0.012% | 512 | 1007.1 | `void at::native::vectorized_elementwise_kernel<(int)2, at::native::CUDAFunctor_add<long>, std::array<char *, (unsigned long)3>>(int, T2, T3)` |
+| elementwise | 433123 | 0.010% | 512 | 845.9 | `void at::native::unrolled_elementwise_kernel<at::native::CUDAFunctorOnSelf_add<int>, std::array<char *, (unsigned long)2>, (int)4, Trivia...` |
+| fill | 430950 | 0.010% | 536 | 804.0 | `void at::native::vectorized_elementwise_kernel<(int)4, at::native::FillFunctor<int>, std::array<char *, (unsigned long)1>>(int, T2, T3)` |
+| fill | 393700 | 0.009% | 512 | 768.9 | `void at::native::unrolled_elementwise_kernel<at::native::FillFunctor<int>, std::array<char *, (unsigned long)1>, (int)4, TrivialOffsetCal...` |
+| copy / cast | 386116 | 0.009% | 512 | 754.1 | `[CUDA memcpy Device-to-Host]` |
+| other | 321093 | 0.007% | 72 | 4459.6 | `recompute_w_u_fwd_kernel` |
+| other | 285798 | 0.006% | 512 | 558.2 | `[CUDA memset]` |
+| other | 274117 | 0.006% | 72 | 3807.2 | `_causal_conv1d_fwd_kernel` |
+| other | 272994 | 0.006% | 72 | 3791.6 | `void at::native::index_elementwise_kernel<(int)128, (int)4, void at::native::gpu_index_kernel<void at::native::index_put_kernel_impl<at::...` |
+| fill | 174148 | 0.004% | 72 | 2418.7 | `void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::<unnamed>::masked_fill_kernel(a...` |
+| other | 131971 | 0.003% | 72 | 1832.9 | `_fused_post_conv_kernel` |
+| elementwise | 74240 | 0.002% | 72 | 1031.1 | `void at::native::vectorized_elementwise_kernel<(int)4, at::native::bitwise_not_kernel_cuda(at::TensorIteratorBase &)::[lambda(bool) (inst...` |
+| copy / cast | 63681 | 0.001% | 24 | 2653.4 | `void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl<at::native::direct_copy_kernel_cuda(at::TensorIter...` |
+| other | 28801 | 0.001% | 4 | 7200.2 | `_zero_kv_blocks_kernel` |
+| elementwise | 12736 | 0.000% | 12 | 1061.3 | `void at::native::vectorized_elementwise_kernel<(int)4, void at::native::compare_scalar_kernel<int>(at::TensorIteratorBase &, at::native::...` |
+| other | 7616 | 0.000% | 4 | 1904.0 | `void at::native::vectorized_gather_kernel<(int)16, long>(char *, char *, T2 *, int, long, long, long, long, bool)` |
+
+## Initial Read
+
+- cuBLAS GEMV 本体は別テーマ `decode_gemv/` で扱ったため、ここでは主対象にしない。
+- 上位 candidate が PyTorch native の copy/cast/elementwise/fill に偏るなら、次は mini reproduction を作る。
+- candidate が pre-ready/warmup 由来に見える場合は、window を狭めて再集計する。

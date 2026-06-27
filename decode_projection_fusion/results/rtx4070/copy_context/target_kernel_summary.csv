@@ -1,0 +1,9 @@
+target_family,target_name,instances,total_target_time_ns,share_of_target_pct,avg_target_ns
+copy / cast,void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 3)]::oper...,65128,113263481,64.118,1739.1
+copy / cast,"void at::native::vectorized_elementwise_kernel<(int)4, at::native::bfloat16_copy_kernel_cuda(at::TensorIteratorBase &)::[lambda(float) (i...",31223,27904587,15.797,893.7
+copy / cast,"void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::Ten...",12491,16667165,9.435,1334.3
+copy / cast,[CUDA memcpy Device-to-Device],17443,14864509,8.415,852.2
+copy / cast,[CUDA memcpy Host-to-Device],5663,2913234,1.649,514.4
+copy / cast,"void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::Ten...",511,556224,0.315,1088.5
+copy / cast,[CUDA memcpy Device-to-Host],512,418749,0.237,817.9
+copy / cast,"void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl<at::native::direct_copy_kernel_cuda(at::TensorIter...",23,61503,0.035,2674.0

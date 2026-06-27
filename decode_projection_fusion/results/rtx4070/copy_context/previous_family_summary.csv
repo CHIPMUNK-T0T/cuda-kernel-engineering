@@ -1,0 +1,8 @@
+previous_family,instances,total_target_time_ns,share_of_target_pct,avg_target_ns
+elementwise,57654,75050563,42.486,1301.7
+copy / cast,31893,47176836,26.706,1479.2
+cuBLAS GEMV,27944,39753516,22.504,1422.6
+other,11588,11341507,6.420,978.7
+GEMM / cuBLAS / CUTLASS,3326,3094839,1.752,930.5
+fill,520,152127,0.086,292.6
+Qwen hybrid / state-space,69,80064,0.045,1160.3

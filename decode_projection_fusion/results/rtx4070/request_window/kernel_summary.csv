@@ -1,0 +1,41 @@
+family,total_time_ns,share_pct,instances,avg_ns,name
+cuBLAS GEMV,3462827177,72.432,37088,93367.9,"std::enable_if<!T7, void>::type internal::gemvx::kernel<int, int, __nv_bfloat16, __nv_bfloat16, __nv_bfloat16, float, (bool)0, (bool)1, (..."
+cuBLAS GEMV,686334383,14.356,21336,32167.9,"std::enable_if<!T7, void>::type internal::gemvx::kernel<int, int, __nv_bfloat16, __nv_bfloat16, __nv_bfloat16, float, (bool)0, (bool)1, (..."
+copy / cast,110787389,2.317,62935,1760.3,void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 3)]::oper...
+norm / reduce,61151991,1.279,31223,1958.6,"void at::native::reduce_kernel<(int)512, (int)1, at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned in..."
+elementwise,55478577,1.160,62446,888.4,"void at::native::vectorized_elementwise_kernel<(int)4, at::native::CUDAFunctorOnSelf_add<float>, std::array<char *, (unsigned long)2>>(in..."
+other,45125682,0.944,37554,1201.6,"void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, flo..."
+Qwen hybrid / state-space,42954198,0.898,9144,4697.5,fused_recurrent_gated_delta_rule_packed_decode_kernel
+norm / reduce,30125419,0.630,31223,964.8,"void at::native::vectorized_elementwise_kernel<(int)4, at::native::rsqrt_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 2)]::..."
+norm / reduce,28090868,0.588,31223,899.7,"void at::native::vectorized_elementwise_kernel<(int)4, void at::native::<unnamed>::pow_tensor_scalar_kernel_impl<float, float>(at::Tensor..."
+copy / cast,27904587,0.584,31223,893.7,"void at::native::vectorized_elementwise_kernel<(int)4, at::native::bfloat16_copy_kernel_cuda(at::TensorIteratorBase &)::[lambda(float) (i..."
+elementwise,23678151,0.495,24892,951.2,"void at::native::vectorized_elementwise_kernel<(int)4, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFun..."
+elementwise,22144299,0.463,24570,901.3,"void at::native::vectorized_elementwise_kernel<(int)4, at::native::CUDAFunctor_add<c10::BFloat16>, std::array<char *, (unsigned long)3>>(..."
+GEMM / cuBLAS / CUTLASS,20854056,0.436,185,112724.6,ampere_bf16_s16816gemm_bf16_128x64_ldg8_f2f_stages_32x6_tn
+activation / SwiGLU,19479816,0.407,12285,1585.7,"void vllm::act_and_mul_kernel<c10::BFloat16, __nv_bfloat162, &vllm::silu_kernel<c10::BFloat16>, &vllm::packed_silu_kernel<__nv_bfloat162>..."
+GEMM / cuBLAS / CUTLASS,19053110,0.399,2808,6785.3,"void flash::flash_fwd_splitkv_kernel<Flash_fwd_kernel_traits<(int)256, (int)64, (int)64, (int)4, (bool)0, (bool)0, cutlass::bfloat16_t, F..."
+copy / cast,16667165,0.349,12491,1334.3,"void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::Ten..."
+copy / cast,14864509,0.311,17443,852.2,[CUDA memcpy Device-to-Device]
+other,12712506,0.266,9144,1390.3,_causal_conv1d_update_kernel
+norm / reduce,10098970,0.211,9213,1096.2,layer_norm_fwd_kernel
+other,7881838,0.165,3583,2199.8,"void at::native::index_elementwise_kernel<(int)128, (int)4, void at::native::gpu_index_kernel<void at::native::index_kernel_impl<at::nati..."
+GEMM / cuBLAS / CUTLASS,7876653,0.165,186,42347.6,ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+fill,6975662,0.146,9282,751.5,"void at::native::vectorized_elementwise_kernel<(int)4, at::native::FillFunctor<c10::BFloat16>, std::array<char *, (unsigned long)1>>(int,..."
+attention,4801523,0.100,3072,1563.0,"void vllm::reshape_and_cache_flash_kernel<__nv_bfloat16, __nv_bfloat16, (vllm::Fp8KVCacheDataType)0>(const T1 *, const T1 *, T2 *, T2 *, ..."
+GEMM / cuBLAS / CUTLASS,4363994,0.091,1536,2841.1,"void flash::flash_fwd_splitkv_combine_kernel<Flash_fwd_kernel_traits<(int)256, (int)64, (int)64, (int)4, (bool)0, (bool)0, cutlass::bfloa..."
+GEMM / cuBLAS / CUTLASS,3829754,0.080,1272,3010.8,"void flash::flash_fwd_splitkv_combine_kernel<Flash_fwd_kernel_traits<(int)256, (int)64, (int)64, (int)4, (bool)0, (bool)0, cutlass::bfloa..."
+elementwise,3729462,0.078,3072,1214.0,"void at::native::vectorized_elementwise_kernel<(int)4, at::native::sigmoid_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 2)]..."
+other,3495382,0.073,2044,1710.1,_compute_slot_mapping_kernel
+RoPE,3195355,0.067,3072,1040.2,_triton_mrope_forward
+copy / cast,2913234,0.061,5663,514.4,[CUDA memcpy Host-to-Device]
+other,2796348,0.058,512,5461.6,"void at::native::reduce_kernel<(int)512, (int)1, at::native::ReduceOp<float, at::native::ArgMaxOps<float>, unsigned int, long, (int)4, (i..."
+elementwise,2791291,0.058,3072,908.6,"void at::native::vectorized_elementwise_kernel<(int)4, at::native::BinaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native:..."
+copy / cast,1920062,0.040,1672,1148.4,void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 3)]::oper...
+elementwise,1832028,0.038,2044,896.3,"void at::native::vectorized_elementwise_kernel<(int)4, at::native::CUDAFunctor_add<int>, std::array<char *, (unsigned long)3>>(int, T2, T3)"
+GEMM / cuBLAS / CUTLASS,1601245,0.033,240,6671.9,"void flash::flash_fwd_splitkv_kernel<Flash_fwd_kernel_traits<(int)256, (int)64, (int)64, (int)4, (bool)0, (bool)0, cutlass::bfloat16_t, F..."
+other,1296669,0.027,580,2235.6,"void at::native::index_elementwise_kernel<(int)128, (int)4, void at::native::gpu_index_kernel<void at::native::index_kernel_impl<at::nati..."
+elementwise,1280510,0.027,1533,835.3,"void at::native::unrolled_elementwise_kernel<at::native::CUDAFunctor_add<int>, std::array<char *, (unsigned long)3>, (int)4, TrivialOffse..."
+other,857566,0.018,508,1688.1,"void at::native::<unnamed>::indexSelectSmallIndex<c10::BFloat16, long, unsigned int, (int)2, (int)2, (int)-2>(at::cuda::detail::TensorInf..."
+other,629374,0.013,69,9121.4,merge_16x16_to_64x64_inverse_kernel
+copy / cast,556224,0.012,511,1088.5,"void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::Ten..."
+copy / cast,556030,0.012,521,1067.2,void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 3)]::oper...

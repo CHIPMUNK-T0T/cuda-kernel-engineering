@@ -1,0 +1,27 @@
+previous_family,target_family,next_family,instances,total_target_time_ns,share_of_target_pct,avg_target_ns
+elementwise,copy / cast,norm / reduce,6144,10807514,16.751,1759.0
+cuBLAS GEMV,copy / cast,GEMM / cuBLAS / CUTLASS,12192,10382458,16.092,851.6
+copy / cast,copy / cast,elementwise,6676,9276972,14.379,1389.6
+other,copy / cast,copy / cast,7244,7294450,11.306,1007.0
+copy / cast,copy / cast,copy / cast,7691,7049604,10.926,916.6
+cuBLAS GEMV,copy / cast,copy / cast,3048,4990524,7.735,1637.3
+copy / cast,copy / cast,RoPE,3072,3364593,5.215,1095.2
+other,copy / cast,other,3144,2998184,4.647,953.6
+GEMM / cuBLAS / CUTLASS,copy / cast,elementwise,3048,2622752,4.065,860.5
+cuBLAS GEMV,copy / cast,other,512,1288401,1.997,2516.4
+other,copy / cast,elementwise,512,597029,0.925,1166.1
+GEMM / cuBLAS / CUTLASS,copy / cast,other,512,596554,0.925,1165.1
+elementwise,copy / cast,other,508,534374,0.828,1051.9
+copy / cast,copy / cast,fill,584,442663,0.686,758.0
+elementwise,copy / cast,elementwise,512,438212,0.679,855.9
+other,copy / cast,GEMM / cuBLAS / CUTLASS,512,431497,0.669,842.8
+elementwise,copy / cast,fill,512,425958,0.660,831.9
+copy / cast,copy / cast,other,519,330089,0.512,636.0
+GEMM / cuBLAS / CUTLASS,copy / cast,copy / cast,96,170273,0.264,1773.7
+fill,copy / cast,copy / cast,524,146626,0.227,279.8
+copy / cast,copy / cast,norm / reduce,72,137731,0.213,1912.9
+GEMM / cuBLAS / CUTLASS,copy / cast,GEMM / cuBLAS / CUTLASS,96,101474,0.157,1057.0
+Qwen hybrid / state-space,copy / cast,other,72,85248,0.132,1184.0
+elementwise,copy / cast,copy / cast,12,4512,0.007,376.0
+<none>,copy / cast,other,1,608,0.001,608.0
+copy / cast,copy / cast,<none>,1,448,0.001,448.0

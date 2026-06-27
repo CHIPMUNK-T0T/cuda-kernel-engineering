@@ -1,0 +1,9 @@
+next_family,instances,total_target_time_ns,share_of_target_pct,avg_target_ns
+copy / cast,18615,19655989,30.466,1055.9
+elementwise,10748,12934965,20.048,1203.5
+norm / reduce,6216,10945245,16.964,1760.8
+GEMM / cuBLAS / CUTLASS,12800,10915429,16.918,852.8
+other,5268,5833458,9.041,1107.3
+RoPE,3072,3364593,5.215,1095.2
+fill,1096,868621,1.346,792.5
+<none>,1,448,0.001,448.0
