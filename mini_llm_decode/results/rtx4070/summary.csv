@@ -1,0 +1,4 @@
+implementation,tokens,hidden,layers,projection_weight_mode,dtype,device,latency_us,tokens_per_second,max_abs_error,mean_abs_error,relative_l2_error,max_rel_error
+pytorch_unfused,1,4096,8,distinct,float16,cuda,788.5279953479767,1268.1857916264607,0.0,0.0,0.0,0.0
+cuda_residual_fused,1,4096,8,distinct,float16,cuda,633.8559985160828,1577.645399493095,0.0,0.0,0.0,0.0
+triton_residual_fused,1,4096,8,distinct,float16,cuda,632.5279772281647,1580.9577378413435,0.0,0.0,0.0,0.0
