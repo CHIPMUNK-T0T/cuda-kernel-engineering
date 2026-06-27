@@ -1,0 +1,4 @@
+implementation,preset,context_len,hidden,layers,num_heads,num_kv_heads,head_dim,dtype,device,latency_us,tokens_per_second,max_abs_error,mean_abs_error,relative_l2_error,max_rel_error
+pytorch_unfused,qwen_like_2b,2048,2048,16,16,4,128,float16,cuda,2671.760082244873,374.2851039078993,0.0,0.0,0.0,0.0
+cuda_residual_fused,qwen_like_2b,2048,2048,16,16,4,128,float16,cuda,2292.736053466797,436.16010595197884,0.0,0.0,0.0,0.0
+triton_residual_fused,qwen_like_2b,2048,2048,16,16,4,128,float16,cuda,2064.736008644104,484.32341752817695,0.0,0.0,0.0,0.0
