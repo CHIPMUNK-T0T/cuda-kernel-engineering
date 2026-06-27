@@ -1,0 +1,6 @@
+backend,model,base_url,prompt_path,max_tokens,run_index,latency_ms,prompt_tokens,generated_tokens,tokens_per_second,backend_reported_eval_tps,load_ms
+openai_compatible,Qwen/Qwen3.5-2B,http://127.0.0.1:8000,backend_compare/prompts/decode_japanese.txt,128,1,1385.8176289995754,54,128,92.3642457142095,,
+openai_compatible,Qwen/Qwen3.5-2B,http://127.0.0.1:8000,backend_compare/prompts/decode_japanese.txt,128,2,1389.2023759999574,54,128,92.13920319410965,,
+openai_compatible,Qwen/Qwen3.5-2B,http://127.0.0.1:8000,backend_compare/prompts/decode_japanese.txt,128,3,1366.3015809997887,54,128,93.68356282390907,,
+openai_compatible,Qwen/Qwen3.5-2B,http://127.0.0.1:8000,backend_compare/prompts/decode_japanese.txt,128,4,1403.9758620001521,54,128,91.16965858490389,,
+openai_compatible,Qwen/Qwen3.5-2B,http://127.0.0.1:8000,backend_compare/prompts/decode_japanese.txt,128,5,1386.36279900129,54,128,92.32792461843957,,
