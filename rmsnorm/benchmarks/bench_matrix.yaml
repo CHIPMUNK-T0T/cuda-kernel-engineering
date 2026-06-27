@@ -1,0 +1,17 @@
+hidden_sizes:
+  - 2048
+  - 3072
+  - 4096
+  - 8192
+
+num_tokens:
+  - 1
+  - 8
+  - 32
+  - 128
+  - 512
+
+dtype: float16
+eps: 1.0e-6
+warmup: 20
+runs: 100

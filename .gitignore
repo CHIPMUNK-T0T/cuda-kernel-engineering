@@ -5,6 +5,7 @@ __pycache__/
 *.py[cod]
 
 # editor / tool local state
+AGENTS.md
 .claude/
 .codex/
 .agents/
