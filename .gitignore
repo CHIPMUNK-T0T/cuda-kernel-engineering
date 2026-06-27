@@ -1,0 +1,32 @@
+.venv/
+.uv-cache/
+.nsys-tmp/
+__pycache__/
+*.py[cod]
+
+# editor / tool local state
+.claude/
+.codex/
+.agents/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# upstream vLLM fork (separate repo: CHIPMUNK-T0T/vllm)
+vllm/
+
+# raw profiler dumps (large binaries; reproducible from the harness)
+*.nsys-rep
+*.sqlite
+*.ncu-rep
+cuda_gpu_trace.csv
+*.log
+
+# per-run / profiling outputs under results/ are reproducible from the
+# benchmark scripts; commit only the curated summaries at results/<gpu>/
+**/results/*/*/
+
+*.so
+build/
+dist/
+*.egg-info/
