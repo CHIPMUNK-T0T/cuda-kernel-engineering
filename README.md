@@ -42,7 +42,7 @@ RMSNorm kernel
 - attention + KV cache 付き mini decoder で **最大 1.42x** の latency 改善。
 - Nsight Systems 上で RMSNorm 側の kernel time 比率を **23–29% → 9–14%** に低減。
 - 実 vLLM request-window では **cuBLAS GEMV が 86.8%** を占めると特定し、削減対象を選定。
-- その profile 起点で Qwen3.5 の `GemmaRMSNorm` path を fused kernel 化し、**実 vLLM backend の decode TPOT を約 15% 改善（decode tokens/s 94 → 112）**（限定条件下）。
+- その profile 起点で Qwen3.5 の `GemmaRMSNorm` path を fused kernel 化し、**実 vLLM backend の decode TPOT を約 15% 短縮（decode tokens/s 94 → 112）**（限定条件下）。
 
 **EN**
 
@@ -50,7 +50,7 @@ RMSNorm kernel
 - Up to **1.42x** latency improvement on the mini decoder with attention + KV cache.
 - RMSNorm's share of kernel time dropped from **23–29% to 9–14%** under Nsight Systems.
 - In the real vLLM request window, **cuBLAS GEMV accounts for 86.8%** of kernel time — which guided what to optimize.
-- Acting on that profile, fusing Qwen3.5's `GemmaRMSNorm` path **improved real vLLM decode TPOT by ~15% (decode tokens/s 94 → 112)** under bounded conditions.
+- Acting on that profile, fusing Qwen3.5's `GemmaRMSNorm` path **reduced real vLLM decode TPOT by ~15% (decode tokens/s 94 → 112)** under bounded conditions.
 
 ## What This Does NOT Claim / まだ言わないこと
 
@@ -252,7 +252,7 @@ GEMV 本体ではなく、vLLM trace に残る **copy / cast / norm / reduce** �
 
 読み取り:
 
-- 自作 fused kernel が **実 vLLM backend の decode per-token latency を約 15% 改善**した（後述の限定条件下）。
+- 自作 fused kernel が **実 vLLM backend の decode per-token latency を約 15% 短縮**した（後述の限定条件下）。
 - GEMV を置き換えるのではなく、その周辺に残る tiny kernel を fusion する、という profile 起点の判断が効いた。
 - ここまで来ると価値は RMSNorm 単体ではなく、「実 backend trace から削減対象を見つけて差し込む」プロセスにある。
 
@@ -350,9 +350,9 @@ bash rmsnorm/scripts/run_nsight.sh triton_residual_fused 512 8192 1
 
 このリポジトリで現在言えること:
 
-> LLM decode に現れる residual add + RMSNorm を CUDA/Triton で fused kernel 化し、kernel 単体 → block → multi-layer decode → attention/KV cache 付き mini decoder まで段階的に評価した。RMSNorm 側の時間比率を大きく下げ、mini decoder latency で最大 1.42x の改善を確認。さらに実 vLLM backend を Nsight で分解し、profile から選んだ Qwen3.5 `GemmaRMSNorm` path を fused kernel 化することで、限定条件下ながら decode TPOT を約 15% 改善した（decode tokens/s 94 → 112）。
+> LLM decode に現れる residual add + RMSNorm を CUDA/Triton で fused kernel 化し、kernel 単体 → block → multi-layer decode → attention/KV cache 付き mini decoder まで段階的に評価した。RMSNorm 側の時間比率を大きく下げ、mini decoder latency で最大 1.42x の改善を確認。さらに実 vLLM backend を Nsight で分解し、profile から選んだ Qwen3.5 `GemmaRMSNorm` path を fused kernel 化することで、限定条件下ながら decode TPOT を約 15% 短縮した（decode tokens/s 94 → 112）。
 
-> Built fused residual-add + RMSNorm kernels in CUDA/Triton and evaluated them stage by stage from a single kernel up to a mini decoder with attention/KV cache (up to 1.42x latency, RMSNorm share cut to ~9–14%). Then profiled a real vLLM backend with Nsight and, acting on the profile, fused Qwen3.5's `GemmaRMSNorm` path to improve decode TPOT by ~15% under bounded conditions (decode tokens/s 94 → 112).
+> Built fused residual-add + RMSNorm kernels in CUDA/Triton and evaluated them stage by stage from a single kernel up to a mini decoder with attention/KV cache (up to 1.42x latency, RMSNorm share cut to ~9–14%). Then profiled a real vLLM backend with Nsight and, acting on the profile, fused Qwen3.5's `GemmaRMSNorm` path to reduce decode TPOT by ~15% under bounded conditions (decode tokens/s 94 → 112).
 
 次に確認すること / Next:
 
